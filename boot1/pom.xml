@@ -1,0 +1,104 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>zxl</groupId>
+  <artifactId>boot1</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>boot1 Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  
+    <!-- spring-boot-starter-parent定义了配置它的parent定义了spring所有jar版本号-->
+    <!-- 此配置没有引入jar包 -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.2.RELEASE</version>
+        <relativePath/>
+    </parent>
+    
+  <dependencies>
+    <!-- <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>3.8.1</version>
+        <scope>test</scope>
+    </dependency> -->
+    
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    
+    <dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-test</artifactId>
+		<scope>test</scope>
+	</dependency>
+	
+	<dependency>
+        <groupId>com.zaxxer</groupId>
+        <artifactId>HikariCP</artifactId>
+        <version>3.1.0</version>
+    </dependency>
+        
+	<dependency>
+	    <groupId>com.ibeetl</groupId>
+	    <artifactId>beetl-framework-starter</artifactId>
+	    <version>1.1.51.RELEASE</version>
+	</dependency>
+	
+	<!-- 热部署 -->
+	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-devtools</artifactId>
+	    <optional>true</optional>
+	    <scope>true</scope>
+	</dependency>
+	
+<!-- <dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-freemarker</artifactId>
+	</dependency> -->
+	
+	<dependency>
+	    <groupId>com.alibaba</groupId>
+	    <artifactId>fastjson</artifactId>
+	    <version>1.2.47</version>
+	</dependency>
+	
+	<!-- lombok 最新版是1.16.20-->
+    <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>1.16.18</version>
+        <scope>provided</scope>
+    </dependency>
+    
+    <!-- 默认有这个配置所以不用加 -->
+<!--     <dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-thymeleaf</artifactId>
+	</dependency> -->
+	
+	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-aop</artifactId>
+	</dependency>
+	
+  </dependencies>
+  <build>
+    <finalName>boot1</finalName>
+    
+    <plugins>
+         <plugin>
+             <groupId>org.springframework.boot</groupId>
+             <artifactId>spring-boot-maven-plugin</artifactId>
+              <configuration>
+                <!-- 没有该配置，devtools 不生效 -->
+                <fork>true</fork>
+              </configuration>
+         </plugin>
+    </plugins>
+  </build>
+</project>

@@ -56,10 +56,10 @@
 	    <scope>true</scope>
 	</dependency>
 	
-<!-- <dependency>
+    <dependency>
 	    <groupId>org.springframework.boot</groupId>
 	    <artifactId>spring-boot-starter-freemarker</artifactId>
-	</dependency> -->
+	</dependency> 
 	
 	<dependency>
 	    <groupId>com.alibaba</groupId>
@@ -86,6 +86,35 @@
 	    <artifactId>spring-boot-starter-aop</artifactId>
 	</dependency>
 	
+	<!-- 用于上传下载-->
+	<dependency>
+	    <groupId>commons-io</groupId>
+	    <artifactId>commons-io</artifactId>
+	    <version>2.4</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-websocket</artifactId>
+	</dependency>
+	
+	<!-- 整合 Swagger2 -->
+	<dependency>
+	    <groupId>io.springfox</groupId>
+	    <artifactId>springfox-swagger2</artifactId>
+	    <version>2.7.0</version>
+	</dependency>
+	<dependency>
+	    <groupId>io.springfox</groupId>
+	    <artifactId>springfox-swagger-ui</artifactId>
+	    <version>2.7.0</version>
+	</dependency>
+	
+	<!-- 整合javamail 使用 Freemark 实现邮件的模板-->
+	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-mail</artifactId>
+	</dependency>
   </dependencies>
   <build>
     <finalName>boot1</finalName>

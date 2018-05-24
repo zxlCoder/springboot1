@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Component;
-import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -15,8 +14,10 @@ public class TimeInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         
         System.out.println("========preHandle=========");
-        System.out.println(((HandlerMethod)handler).getBean().getClass().getName());
-        System.out.println(((HandlerMethod)handler).getMethod().getName());
+		// System.out.println(((HandlerMethod)
+		// handler).getBean().getClass().getName()); //
+		// (HandlerMethod)handler这个强转会抛异常
+		// System.out.println(((HandlerMethod)handler).getMethod().getName());
         
         request.setAttribute("startTime", System.currentTimeMillis());
         

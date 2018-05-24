@@ -1,0 +1,15 @@
+本项目教程参考自  http://www.cnblogs.com/moonlightL/p/7891806.html
+
+测试地址
+
+http://localhost:81/
+http://localhost:81/fastjson/test
+http://localhost:81/freemarker/test
+http://localhost:81/thymeleaf/test
+http://localhost:81/servletTest
+http://localhost:81/error/500
+http://localhost:81/websocket.html
+http://localhost:81/swagger-ui.html
+http://localhost:81/fastjson/sendemail
+
+这种配置 模板引擎不能同时用多个

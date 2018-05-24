@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("thymeleaf")
 public class ThymeleafController {
 
-    @RequestMapping("hello")
+	@RequestMapping("test")
     public String hello(Map<String,Object> map) {
         map.put("msg", "Hello Thymeleaf");
-        return "hello";
+		return "hello2";
     }
 }

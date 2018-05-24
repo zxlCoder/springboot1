@@ -1,0 +1,60 @@
+获取代码:
+1.fetch from upstream  (把远程分支代码更新到本地的远程分支)(项目右键 -> team -> fetch from upstream)
+2.merge  (合并本地远程分支的代码到本地分支)(项目右键 -> team -> merge)
+
+pull  把上面两步可以合并成一步(项目右键 -> team -> pull)
+
+
+(提交代码前要先获取代码,本地远程分支和远程分支的代码一样时才能提交代码)
+提交代码
+1.修改文件
+2.commit  (提交代码到本地分支)(项目右键 -> team -> commit)
+3.push to upstream  (把本地分支代码推送到远程分支)(项目右键 -> team -> push to upstream)
+
+
+
+本地分支                  远程分支
+
+本地远程分支
+
+
+
+经测试: 项目右键 -> team -> synchronize workspace 时,会自动 fetch from upstream,然后进行同步对比,所以对比的是本地分支(实际是本地工作空间)代码和远程分支代码
+
+
+总结: 操作组合 commit -> pull -> push to upstream
+
+精简操作组合  commit -> push to upstream  如果不是最新代码会自动提示 :non-fast-forward,然后再 pull也不迟
+
+git冲突位置: pull后可能发生冲突, synchronize workspace可以提前避免冲突
+
+因为pull 是fetch from upstream 和 merge 的组合,所以pull 是先fetch from upstream ,然后merge 发生了冲突(merge不成功),修改文件后只需 mark as merge 可标记解决冲突,然后commit再push
+
+
+
+eclipse分享项目到github
+参考自https://blog.csdn.net/zjdwhd/article/details/52959867
+
+1.github新建一个仓库
+
+2.选中项目 > 右键 > Team > Share Project > Git   点击 CreateRepository ，点击 Finish  创建了一个本地项目
+
+3.选中项目，右键 > Team > Commit ，选中要提交的文件，点击 Commit ，会把项目文件提交到本地git仓库
+
+4.如何提交到GitHub账号下？选中项目，右键 > Team > Remote > Push
+
+
+
+svn  本地代码             远程仓库代码
+git  本地仓库代码(一般有两个分支 master本地分支 和origin本地远程分支)      远程仓库代码(origin分支)
+
+svn  提交：commit，把本地代码提交到远程仓库代码，
+         更新：update，把远程仓库代码更新到本地代码
+git  提交：commit and push，commit是把本地分支master代码提交到本地远程分支origin再 push to upstream 推送到远程origin分支
+         更新：pull，pull 是fetch from upstream 和 merge 的组合，fetch from upstream 从origin远程分支更新代码到origin本地远程分支，merge是合并origin本地远程分支的改变到master本地分支
+
+svn  本地代码就是工作空间代码
+git  本地仓库的master分支代码就是工作空间代码
+
+svn  update时会发生冲突
+git  pull时会发生冲突(实际是因为merge时会发生冲突)

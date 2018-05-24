@@ -13,4 +13,5 @@ public class User {
 	 private String password;
 	 @JSONField(format="yyyy-MM-dd")
 	 private Date birthday;
+	 private String descr;
 }

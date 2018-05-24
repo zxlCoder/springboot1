@@ -22,7 +22,7 @@ public class TimeFilter implements Filter {
 
         long start = System.currentTimeMillis();
         filterChain.doFilter(request, response);
-        System.out.println("filter 耗时：" + (System.currentTimeMillis() - start));
+    //    System.out.println("filter 耗时：" + (System.currentTimeMillis() - start));
 
     }
 

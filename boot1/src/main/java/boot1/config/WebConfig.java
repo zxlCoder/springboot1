@@ -9,6 +9,7 @@ import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -19,6 +20,7 @@ import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 
 import boot1.filter.TimeFilter;
+import boot1.listener.ActiveRecordListener;
 import boot1.listener.ListenerTest;
 import boot1.servlet.ServletTest;
 
@@ -32,6 +34,11 @@ public class WebConfig {
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
         fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat);
         fastJsonHttpMessageConverter.setFastJsonConfig(fastJsonConfig);
+		// 解决乱码
+		List<MediaType> fastMediaTypes = new ArrayList<>();
+		fastMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
+		fastJsonHttpMessageConverter.setSupportedMediaTypes(fastMediaTypes);
+
         HttpMessageConverter<?> converter = fastJsonHttpMessageConverter;
         return new HttpMessageConverters(converter);
 
@@ -61,6 +68,12 @@ public class WebConfig {
         return new ServletListenerRegistrationBean<ListenerTest>(new ListenerTest());
     }
     
+	// listener
+	@Bean
+	public ServletListenerRegistrationBean<ActiveRecordListener> servletListenerRegistrationBean2() {
+		return new ServletListenerRegistrationBean<ActiveRecordListener>(new ActiveRecordListener());
+	}
+
 	// 粗力度解决跨域问题
     @Bean
     public WebMvcConfigurer corsConfigurer() {

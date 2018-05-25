@@ -12,14 +12,13 @@ import org.beetl.sql.core.SQLManager;
 public class SqlKit {
     static SQLManager dao;
 
-    private SqlKit() {
-
-    }
+	// 单例模式
+	private SqlKit() {}
 
     /**
      * @return sqlManager
      */
-    public static SQLManager dao() {
+	public static SQLManager getDao() {
         return dao;
     }
 
@@ -28,8 +27,7 @@ public class SqlKit {
      *
      * @param sqlManager sm
      */
-
-    public static void dao(SQLManager sqlManager) {
+	public static void setDao(SQLManager sqlManager) {
     	dao = sqlManager;
     }
 
@@ -41,6 +39,6 @@ public class SqlKit {
      * @return 接口实例
      */
     public static <T> T mapper(Class<T> mapperInterface) {
-        return dao().getMapper(mapperInterface);
+		return getDao().getMapper(mapperInterface);
     }
 }

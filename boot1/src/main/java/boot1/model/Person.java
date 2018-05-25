@@ -7,7 +7,9 @@ import lombok.Data;
 @lombok.experimental.Accessors(chain = true) // 链式编程
 //@FieldDefaults(level = AccessLevel.PRIVATE)  // 属性默认都是private
 //@Table(name = "t_Person")                     // 实体类与表映射
-public class Person implements ActiveRecord{
+public class Person implements ActiveRecord<Person>{
+	
+	public static final Person dao = new Person();
 	private Integer id;
 	private String name;
 	private Integer age;

@@ -12,10 +12,10 @@ import lombok.Data;
 //@FieldDefaults(level = AccessLevel.PRIVATE)  // 属性默认都是private
 //@Table(name = "t_Person")                     // 实体类与表映射
 //@Tail
-public class Person extends Model<Person>{
+public class Class extends Model<Class>{
 	
-	public static final Person dao = new Person();
+	public static final Class dao = new Class();
 	private Integer id;
 	private String name;
-	private Integer age;
+	private String desc;
 }

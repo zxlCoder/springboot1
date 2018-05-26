@@ -1,6 +1,15 @@
 package boot1.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.beetl.ext.fn.StringUtil;
 import org.beetl.sql.core.SQLManager;
+import org.beetl.sql.core.SQLReady;
+import org.beetl.sql.core.engine.PageQuery;
+import org.beetl.sql.core.kit.StringKit;
+import org.beetl.sql.core.query.Query;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +20,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import boot1.beetlsql.SqlKit;
 import boot1.model.Person;
+import boot1.model.Student;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -96,14 +106,73 @@ public class BeetlSqlControllerTest {
 	public void testCommonQuery() {
 		//System.out.println(Person.dao.query().select("id", "name"));
 		//System.out.println(Person.dao.query().andEq("id", 4).select("id", "name"));
-		// System.out.println(Person.dao.query().desc("id").select("id",
-		// "name"));
+		// System.out.println(Person.dao.query().desc("id").select("id","name"));
 		// beetl默认1的第一个数据
-		System.out.println(Person.dao.query().desc("id").limit(1, 1).select("id", "name"));
+		//System.out.println(Person.dao.query().desc("id").limit(0, 1).select("id", "name"));
+		//System.out.println(Person.dao.find("select * from person where id = ?", new Person().setId(4)));
+		//System.out.println(dao.execute("select * from person where id = #id#", Person.class, new Person().setId(2)));
+		//System.out.println(dao.execute(new SQLReady("select * from person where id = ?", 2), Person.class));
+		//System.out.println(dao.execute(new SQLReady("select * from person where id != ?", 100), Person.class, new PageQuery<>()));
+		//System.out.println(Person.dao.findPage(new Person().setAge(19), 1, 10, "age desc,id desc"));
+		/*List<Person> list = Person.dao.findPage(new Person().setAge(19), 1, 10, "age desc,id desc");
+		for (Person person : list) {
+			System.out.println(person);
+		}*/
+		//System.out.println(Person.dao.findOne(new Person().setId(2)));
+		//System.out.println(Person.dao.findOne(new HashMap().put("id", 2))); 错误写法，put后返回的不是map
+		//System.out.println(Person.dao.findList(new HashMap() {{put("id", "2");}}));
+		//System.out.println(Person.dao.findList(null));
+		
+		Query<Person> query = Person.dao.query();
+		query.andLike("name", "%天%");
+		query.andNotEq("age", 100);
+		System.out.println(query.getSql());
+		System.out.println(query.select());
+	};
+	
+	//动态查询
+	@Test
+	public void testQuery() {
+		String name = "天";
+		Integer age = 100;
+		Query<Person> query = Person.dao.query();
+		if(StringKit.isNotBlank(name)){
+			query.andLike("name", name);
+		}
+		if(age!=null){
+			query.andNotEq("age", age);
+		}
+		System.out.println(query.getSql());
+		System.out.println(query.select());
+	}
+	
+	//改进动态查询， andEq和andLike方法参数允许为空，like非空参数自动前后加百分号
+	@Test
+	public void testMyQuery() {
+		Query<Person> query = Person.dao.myQuery().andLike("name", "天").andLike("name", null);
+		System.out.println(query.getSql());
+		System.out.println(query.select());
+	}
+	
+	//自定义多表动态查询
+	@Test
+	public void testManyQuery() {
+		List<Person> list = Person.dao.myQuery().andLike("p.name", "天").andLike("name", null).select("select * from person p");
+		System.out.println(list);
+	}
+	
+	//自定义多表动态查询
+	@Test
+	public void testManyQuery2() {
+		List<Student> list = Student.dao.myQuery().andLike("s.name", "天").andLike("s.name", null).select("select s.*,c.name className,c.desc classDesc from student s join class c on s.classId = c.id ");
+		System.out.println(list);
+		for (Student student : list) {
+			System.out.println(student.get("classname"));  //字段名变成了小写
+		}
 	}
 
 	@After
 	public void after() {
-		System.out.println(dao.all(Person.class));
+		//System.out.println(dao.all(Person.class));
 	}
 }

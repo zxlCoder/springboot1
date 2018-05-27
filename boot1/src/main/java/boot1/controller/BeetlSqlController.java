@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 
 import boot1.model.Person;
+import boot1.model.Student;
 
 @RestController
 @RequestMapping("beetlsql")
@@ -34,6 +35,19 @@ public class BeetlSqlController {
 		JSONObject json = new JSONObject();
 		json.put("msg", "hello");
 		json.put("data", person);
+		System.out.println(json.toString());
+		return json;
+	}
+	
+	@RequestMapping("/testOrm")
+	@ResponseBody
+	public JSONObject testOrm() {
+		// Person person = new Person().findById(2); 疑问：不知道jfinal为什么不提倡这样用
+		Student student = Student.dao.findById(1);
+		System.out.println(student);
+		JSONObject json = new JSONObject();
+		json.put("msg", "hello");
+		json.put("data", student);
 		System.out.println(json.toString());
 		return json;
 	}

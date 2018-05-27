@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import boot1.beetlsql.MyQuery;
 import boot1.beetlsql.SqlKit;
 import boot1.model.Person;
 import boot1.model.Student;
@@ -37,7 +38,7 @@ public class BeetlSqlControllerTest {
 	@Test
 	public void testAdd() {
 		Person person = new Person();
-		person.setId(1); // 设置id也不生效
+		person.setId(1L); // 设置id也不生效
 		person.setAge(17);
 		person.setName("小小");
 	//	dao.insert(person); //全值插入
@@ -48,7 +49,7 @@ public class BeetlSqlControllerTest {
 	@Test
 	public void testUpdate() {
 		Person person = new Person();
-		person.setId(1);
+		person.setId(1L);
 		person.setAge(19);
 	//	dao.updateById(person);
 		dao.updateTemplateById(person); //只有不为null的属性参与更新
@@ -70,13 +71,13 @@ public class BeetlSqlControllerTest {
 	// AR新增
 	@Test
 	public void testAdd_AR() {
-		new Person().setId(1).setAge(12).setName("天天").save(); // 设置id也不生效
+		new Person().setId(1L).setAge(12).setName("天天").save(); // 设置id也不生效
 	}
 
 	// AR更新
 	@Test
 	public void testUpdate_AR() {
-		new Person().setId(2).setAge(14).setName("天天2").update();
+		new Person().setId(2L).setAge(14).setName("天天2").update();
 	}
 
 	// AR查询
@@ -164,11 +165,49 @@ public class BeetlSqlControllerTest {
 	//自定义多表动态查询
 	@Test
 	public void testManyQuery2() {
-		List<Student> list = Student.dao.myQuery().andLike("s.name", "天").andLike("s.name", null).select("select s.*,c.name className,c.desc classDesc from student s join class c on s.classId = c.id ");
+		List<Student> list = Student.dao.myQuery().andLike("s.name", "天").andLike("s.name", null).select("select s.*,c.name clazzName,c.desc clazzDesc from student s join clazz c on s.clazzId = c.id ");
 		System.out.println(list);
 		for (Student student : list) {
-			System.out.println(student.get("classname"));  //字段名变成了小写
+			System.out.println(student.get("clazzname"));  //字段名变成了小写
 		}
+	}
+	
+	//自定义多表动态查询，Query强转成MyQuery
+	@Test
+	public void testManyQuery3() {
+		//设置条件
+		MyQuery<Student> myQuery = (MyQuery<Student>) Student.dao.myQuery().andLike("s.name", "天").andLike("s.name", null).andNotEq("s.name", "good");
+		//进行查询
+		List<Student> list = myQuery.select("select s.*,c.name clazzName,c.desc clazzDesc from student s join clazz c on s.clazzId = c.id ");
+		System.out.println(list);
+		for (Student student : list) {
+			System.out.println(student.get("clazzname"));  //字段名变成了小写
+		}
+	}
+	
+	//自定义多表动态查询，Query强转成MyQuery
+	@Test
+	public void testManyQuery4() {
+		String sql = "select s.*,c.name clazzName,c.desc clazzDesc from student s "
+								+ "join clazz c on s.clazzId = c.id ";
+		//设置条件
+		MyQuery<Student> myQuery = (MyQuery<Student>) Student.dao.myQuery().andLike("s.name", "天").andLike("s.name", null).andNotEq("s.name", "good");
+		//进行查询
+		List<Student> list = myQuery.select(sql);
+		//System.out.println(list);
+		for (Student student : list) {
+			System.out.println(student.toString()+" "+student.get("clazzname"));  //字段名变成了小写
+		}
+	}
+	
+	//orm查询
+	@Test
+	public void testOrm() {
+		List<Student> list = Student.dao.myQuery().select();
+		for (Student student : list) {
+			System.out.println(student.getClazz());
+		}
+		//System.out.println(list);
 	}
 
 	@After

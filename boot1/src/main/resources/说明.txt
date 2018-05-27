@@ -13,8 +13,25 @@ http://localhost:81/swagger-ui.html
 http://localhost:81/fastjson/sendemail
 http://localhost:81/druid/index.html 
 http://localhost:81/beetlsql/testGet
+http://localhost:81/beetlsql/testOrm
 
 这种配置 模板引擎不能同时用多个
 
 git地址
 https://github.com/zxlCoder/springboot1.git
+
+
+
+当新增记录的时候，mysql自动将系统的当前时间set到创建时间和更新时间这两个字段中。 
+当更新记录的时候，mysql只update更新时间字段的时间，而不修改创建时间字段对应的值。
+
+方案： 
+找到表中对应的创建时间和更新时间的字段，将其修改为下列代码所示。
+ 
+创建时间字段
+
+`creat_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+1
+更新时间字段
+
+ `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP

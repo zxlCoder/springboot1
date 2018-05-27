@@ -51,7 +51,7 @@ public class MyQuery<T> extends Query<T>{
         return (MyQuery) this;
 	}
 	
-	//下面三个方法是为了让query支持多表查询
+	//下面三个方法是为了让query支持多表查询，下面三个方法父类中没有，都是新增的而不是覆写的
     public List<T> select(String sql) {
         return this.selectByType2(sql, clazz);
     }

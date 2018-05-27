@@ -41,7 +41,7 @@ public interface ActiveRecord<M extends ActiveRecord> extends Serializable {
      * @return true 保存成功
      */
 	default boolean save() {
-		return getDao().insertTemplate(this, true) > 0; // 会返回id，会忽略插入的id而使用自增id
+		return getDao().insertTemplate(this, true) > 0; // 会返回id，会忽略插入的id而使用自增id,对于null值不做处理
     }
 
     /**

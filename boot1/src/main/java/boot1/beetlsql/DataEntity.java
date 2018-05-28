@@ -9,15 +9,17 @@ import java.util.Date;
 import org.beetl.sql.core.annotatoin.LogicDelete;
 import org.beetl.sql.core.annotatoin.Version;
 import org.hibernate.validator.constraints.Length;
+
 import com.alibaba.fastjson.annotation.JSONField;
-import lombok.Data;
-import lombok.experimental.Accessors;
+
+import lombok.ToString;
 
 /**
  * 数据Entity类
  * @author cnony
  * @version 2017-05-16
  */
+@ToString(exclude = {"createBy","updateBy","createDate","updateDate","delFlag","version"})
 public abstract class DataEntity<M extends Model> extends Model<M> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -26,7 +28,7 @@ public abstract class DataEntity<M extends Model> extends Model<M> implements Se
 	protected Long createBy;	// 创建者
 	protected Long updateBy;	// 更新者
 	@Length(min=0, max=255)
-	protected String remarks;	// 备注
+	//protected String remarks;	// 备注
 	@JSONField(format="yyyy-MM-dd HH:mm:ss")
 	protected Date createDate;	// 创建日期
 	@JSONField(format="yyyy-MM-dd HH:mm:ss")
@@ -101,15 +103,6 @@ public abstract class DataEntity<M extends Model> extends Model<M> implements Se
 
 	public M setUpdateBy(Long updateBy) {
 		this.updateBy = updateBy;
-		return (M) this;
-	}
-
-	public String getRemarks() {
-		return remarks;
-	}
-
-	public M setRemarks(String remarks) {
-		this.remarks = remarks;
 		return (M) this;
 	}
 

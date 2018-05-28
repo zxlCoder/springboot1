@@ -1,13 +1,8 @@
 package boot1.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.beetl.ext.fn.StringUtil;
 import org.beetl.sql.core.SQLManager;
-import org.beetl.sql.core.SQLReady;
-import org.beetl.sql.core.engine.PageQuery;
 import org.beetl.sql.core.kit.StringKit;
 import org.beetl.sql.core.query.Query;
 import org.junit.After;
@@ -71,6 +66,7 @@ public class BeetlSqlControllerTest {
 	// AR新增
 	@Test
 	public void testAdd_AR() {
+		// Person.of().setName("天天");
 		new Person().setId(1L).setAge(12).setName("天天").save(); // 设置id也不生效
 	}
 

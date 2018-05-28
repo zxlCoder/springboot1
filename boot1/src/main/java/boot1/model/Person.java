@@ -11,6 +11,8 @@ import boot1.beetlsql.ActiveRecord;
 import boot1.beetlsql.DataEntity;
 import boot1.beetlsql.Model;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 @Data
@@ -18,6 +20,8 @@ import lombok.experimental.Accessors;
 //@FieldDefaults(level = AccessLevel.PRIVATE)  // 属性默认都是private
 //@Table(name = "t_Person")                     // 实体类与表映射
 //@Tail
+//@NoArgsConstructor(staticName = "of")
+@ToString(callSuper = true)
 public class Person extends DataEntity<Person>{
 	
 	private static final long serialVersionUID = 1L;

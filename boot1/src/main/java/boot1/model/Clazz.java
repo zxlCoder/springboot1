@@ -29,6 +29,7 @@ public class Clazz extends Model<Clazz>{
 	@JSONField(serialize=false)
 	public List<Student> getStudents(){
 		//return Student.dao.query().andEq("clazzId", this.id).select();
-		return Student.dao.findList(new Student().setClazzId(this.id));
+		//return Student.dao.findList(new Student().setClazzId(this.id));
+		return Student.dao.where("clazzId",this.id);
 	}
 }

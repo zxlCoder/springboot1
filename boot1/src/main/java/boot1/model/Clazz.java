@@ -26,8 +26,8 @@ public class Clazz extends Model<Clazz>{
 	
 	//变相的orm
 	//使fastjson序列化时忽略此方法
-	@JSONField(serialize=false)
-	public List<Student> getStudents(){
+	//@JSONField(serialize=false)
+	public List<Student> geStudents(){
 		//return Student.dao.query().andEq("clazzId", this.id).select();
 		//return Student.dao.findList(new Student().setClazzId(this.id));
 		return Student.dao.where("clazzId",this.id);

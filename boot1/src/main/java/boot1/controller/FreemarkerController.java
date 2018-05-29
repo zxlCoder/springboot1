@@ -13,4 +13,6 @@ public class FreemarkerController {
         map.put("msg", "Hello Freemarker");
         return "hello";
     }
+
 }
+

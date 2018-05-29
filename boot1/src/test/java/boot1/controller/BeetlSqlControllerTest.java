@@ -1,5 +1,8 @@
 package boot1.controller;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.List;
 
 import org.beetl.sql.core.SQLManager;
@@ -201,9 +204,35 @@ public class BeetlSqlControllerTest {
 	public void testOrm() {
 		List<Student> list = Student.dao.myQuery().select();
 		for (Student student : list) {
-			System.out.println(student.getClazz());
+			System.out.println(student.geClazz());
 		}
 		//System.out.println(list);
+	}
+
+	// orm查询
+	// getFields()：获得某个类的所有的公共（public）的字段，包括父类中的字段。
+	// getDeclaredFields()：获得某个类的所有声明的字段，即包括public、private和proteced，但是不包括父类的申明字段。
+	// 同样类似的还有getConstructors()和getDeclaredConstructors()、getMethods()和getDeclaredMethods()，这两者分别表示获取某个类的方法、构造函数。
+	@Test
+	public void testClass() {
+		Class c = Student.class;
+		Annotation[] list = c.getAnnotations();
+		for (Annotation annotation : list) {
+			System.out.println(annotation.annotationType().getName());
+		}
+		Field[] filds = c.getFields();
+		for (Field field : filds) {
+			System.out.println(field.getName());
+		}
+		Field[] fild2s = c.getDeclaredFields();
+		for (Field field : fild2s) {
+			System.out.println(field.getName());
+		}
+		Method[] methods = c.getDeclaredMethods();
+		for (Method method : methods) {
+			System.out.println(method.getName());
+		}
+		// System.out.println(list);
 	}
 
 	@After

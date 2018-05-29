@@ -10,8 +10,6 @@ import org.beetl.sql.core.TailBean;
 import org.beetl.sql.core.engine.PageQuery;
 import org.beetl.sql.core.query.Query;
 
-import boot1.model.Person;
-
 /**
  * @author zxl
  * @说明  针对单表查询的类
@@ -53,9 +51,9 @@ public abstract class Model<M extends Model> extends TailBean implements Seriali
 
 
 		/**
-		 * @说明 根据id查询对象，考虑用find代替
+		 * @说明 根据id查询对象，findById考虑用find代替
 		 */
-		public M findById(Object id) {
+	public M findById(Object id) {
 			//return (M) getDao().unique(this.getClass(), id); // 如果对象不存在，则会抛出一个Runtime异常
 			return (M) getDao().single(this.getClass(), id); //如果对象不存在，返回null
 		}

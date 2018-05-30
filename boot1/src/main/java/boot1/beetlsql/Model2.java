@@ -11,8 +11,6 @@ import org.beetl.sql.core.TailBean;
 import org.beetl.sql.core.engine.PageQuery;
 import org.beetl.sql.core.query.Query;
 
-import boot1.model.Person;
-
 /**
  * @author zxl
  * @说明  
@@ -42,6 +40,7 @@ public abstract class Model2<M extends Model2> extends TailBean implements Seria
 	     */
 		public boolean update() {
 	        //return getDao().updateTemplateById(this) > 0;
+		// 此处不能用myquery，如果id不存在就更新全部的了
 			return new Query(getDao(), this.getClass()).updateSelective (this) > 0;
 	    }
 
@@ -51,6 +50,7 @@ public abstract class Model2<M extends Model2> extends TailBean implements Seria
 		 */
 		public boolean deleteById(Object id) {
 			//return getDao().deleteById(this.getClass(), id) > 0;
+		// 此处不能用myquery，如果id不存在就删除全部的了
 			return new Query(getDao(), this.getClass()).andEq("id", id).delete() > 0; //要获取主键名，复合主键要循环调用andEq
 	    }
 
